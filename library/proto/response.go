@@ -1,10 +1,11 @@
 package proto
 
 import (
-	"github.com/valyala/fasthttp"
 	"net/url"
 	"strings"
 	"sync"
+
+	"github.com/valyala/fasthttp"
 )
 
 var responsePool = sync.Pool{New: func() interface{} { return new(Response) }}
@@ -15,27 +16,27 @@ func SetupResponse(response *fasthttp.Response, req *fasthttp.Request) (*Respons
 	if err != nil {
 		return nil, err
 	}
-	resp := responsePool.Get().(*Response)
-	resp.Url = SetupURL(u)
-	resp.Headers = make(map[string]string)
-	resp.Status = int32(response.StatusCode())
-	headerContent := response.Header.String()
-	headers := strings.Split(headerContent, "\r\n")
-	resp.ContentType = string(response.Header.Peek("Content-Type"))
-	resp.Body = make([]byte, len(response.Body()))
-	copy(resp.Body, response.Body())
-	for i := 0; i < len(headers); i++ {
-		values := strings.SplitN(headers[i], ":", 2)
+	headers := make(map[string]string)
+	lines := strings.Split(response.Header.String(), "\r\n")
+	for i := 0; i < len(lines); i++ {
+		values := strings.SplitN(lines[i], ":", 2)
 		if len(values) != 2 {
 			continue
 		}
-		resp.Headers[strings.ToLower(values[0])] = strings.TrimLeft(values[1], " ")
+		headers[strings.ToLower(values[0])] = strings.TrimSpace(values[1])
 	}
+	resp := responsePool.Get().(*Response)
+	resp.Url = SetupURL(u)
+	resp.Headers = headers
+	resp.Status = int32(response.StatusCode())
+	resp.ContentType = string(response.Header.Peek("Content-Type"))
+	resp.Body = make([]byte, len(response.Body()))
+	copy(resp.Body, response.Body())
 	return resp, nil
 }
 
-// RecycleResponse recycle a response object
-func RecycleResponse(response *Response) {
+// ReleaseResponse recycle a response object
+func ReleaseResponse(response *Response) {
 	if response != nil {
 		response.Reset()
 		responsePool.Put(response)

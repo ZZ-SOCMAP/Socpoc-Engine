@@ -54,8 +54,8 @@ func SetupRequest(method, target, body string, headers map[string]string) (*Requ
 	return request, nil
 }
 
-// RecycleRequest recycle a request object
-func RecycleRequest(request *Request) {
+// ReleaseRequest recycle a request object
+func ReleaseRequest(request *Request) {
 	if request != nil {
 		request.Reset()
 		requestPool.Put(request)

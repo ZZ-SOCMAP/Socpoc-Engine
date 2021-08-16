@@ -72,6 +72,7 @@ func NewCelOption() (c CelLibrary) {
 	return c
 }
 
+// NewCelEnv new env from set
 func NewCelEnv(set map[string]string) (*cel.Env, error) {
 	option := NewCelOption()
 	if set != nil {

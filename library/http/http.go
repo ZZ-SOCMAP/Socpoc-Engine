@@ -2,8 +2,9 @@ package http
 
 import (
 	"crypto/tls"
-	"github.com/valyala/fasthttp"
 	"time"
+
+	"github.com/valyala/fasthttp"
 )
 
 // FasthttpClient interface

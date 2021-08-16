@@ -1,6 +1,7 @@
 package scanner
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"sync"
@@ -26,11 +27,11 @@ func (s *scanner) Start(target string, rules []build.PocRule) (verify bool, err 
 		verify, err = s.scan(target, &rules[i])
 		if request, ok := s.set["request"]; ok {
 			// 回收 model request
-			proto.RecycleRequest(request.(*proto.Request))
+			proto.ReleaseRequest(request.(*proto.Request))
 		}
 		if response, ok := s.set["response"]; ok {
 			// 回收 model response
-			proto.RecycleResponse(response.(*proto.Response))
+			proto.ReleaseResponse(response.(*proto.Response))
 		}
 		if err != nil {
 			return verify, err
@@ -94,11 +95,17 @@ func (s *scanner) scan(target string, rule *build.PocRule) (bool, error) {
 	return out.Value().(bool), nil
 }
 
-func New(set map[string]interface{}, env *cel.Env) *scanner {
-	scan := scannerPool.Get().(*scanner)
-	scan.set = set
-	scan.env = env
-	return scan
+func New(poc *build.PocEvent) (scan *scanner, err error) {
+	if poc == nil {
+		return nil, errors.New("无效的Poc")
+	}
+	scan = scannerPool.Get().(*scanner)
+	if scan.env, err = decode.NewCelEnv(poc.Set); err != nil {
+		Release(scan)
+		return nil, err
+	}
+	scan.set = poc.DecodeSet(scan.env)
+	return scan, nil
 }
 
 func Release(scan *scanner) {

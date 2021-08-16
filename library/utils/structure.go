@@ -22,7 +22,7 @@ func StrToBytes(s string) []byte {
 	return *(*[]byte)(unsafe.Pointer(&b))
 }
 
-// BytesToStr 字节转字符串
+// BytesToStr bytes to string
 func BytesToStr(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }
