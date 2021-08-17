@@ -9,4 +9,5 @@ require (
 	github.com/valyala/fasthttp v1.28.0
 	google.golang.org/genproto v0.0.0-20210715145939-324b959e9c22
 	google.golang.org/protobuf v1.27.1
+	gopkg.in/yaml.v2 v2.4.0
 )

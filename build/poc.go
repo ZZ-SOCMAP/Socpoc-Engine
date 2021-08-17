@@ -1,6 +1,7 @@
 package build
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -8,6 +9,7 @@ import (
 	"github.com/yanmengfei/spoce/library/decode"
 	"github.com/yanmengfei/spoce/library/proto"
 	"github.com/yanmengfei/spoce/library/utils"
+	"gopkg.in/yaml.v2"
 )
 
 type PocEvent struct {
@@ -15,6 +17,38 @@ type PocEvent struct {
 	Set    map[string]string    `yaml:"set" json:"set"`
 	Rules  []PocRule            `yaml:"rules" json:"rules"`
 	Groups map[string][]PocRule `yaml:"groups" json:"groups"`
+}
+
+func NewPocEventWithJsonStr(code string) (*PocEvent, error) {
+	var object PocEvent
+	if err := json.Unmarshal(utils.StrToBytes(code), &object); err != nil {
+		return nil, err
+	}
+	return &object, nil
+}
+
+func NewPocEventWithYamlStr(code string) (*PocEvent, error) {
+	var object PocEvent
+	if err := yaml.Unmarshal(utils.StrToBytes(code), &object); err != nil {
+		return nil, err
+	}
+	return &object, nil
+}
+
+func (p PocEvent) ToJsonStr() (string, error) {
+	value, err := json.Marshal(&p)
+	if err != nil {
+		return "", err
+	}
+	return utils.BytesToStr(value), nil
+}
+
+func (p PocEvent) ToYamlStr() (string, error) {
+	value, err := yaml.Marshal(&p)
+	if err != nil {
+		return "", err
+	}
+	return utils.BytesToStr(value), nil
 }
 
 func (p *PocEvent) DecodeSet(env *cel.Env) map[string]interface{} {
