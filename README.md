@@ -19,18 +19,18 @@ go get github.com/yanmengfei/spoce
 package main
 
 import (
-	"log"
+    "log"
 
-	"github.com/yanmengfei/spoce/build"
-	"github.com/yanmengfei/spoce/library/http"
-	"github.com/yanmengfei/spoce/scanner"
+    "github.com/yanmengfei/spoce/build"
+    "github.com/yanmengfei/spoce/library/http"
+    "github.com/yanmengfei/spoce/scanner"
 )
 
 var urls = []string{
-	"http://117.161.6.2:8180",
-	"https://27.221.68.244:443",
-	"http://13.75.117.202:3000",
-	"https://113.108.174.45:443",
+    "http://117.161.6.2:8180",
+    "https://27.221.68.244:443",
+    "http://13.75.117.202:3000",
+    "https://113.108.174.45:443",
 }
 
 var pocYamlStr = `name: poc-yaml-weblogic-console
@@ -44,29 +44,29 @@ rules:
 `
 
 func logic(poc *build.PocEvent, target string) error {
-	scan, err := scanner.New(poc)
-	if err == nil {
-		var verify bool
-		if poc.Rules != nil {
-			verify, err = scan.Start(target, poc.Rules)
-		} else {
-			verify, err = scan.StartByGroups(target, poc.Groups)
-		}
-		scanner.Release(scan)
-		log.Printf("%s: %v", target, verify)
-	}
-	return err
+    scan, err := scanner.New(poc)
+    if err == nil {
+        var verify bool
+        if poc.Rules != nil {
+            verify, err = scan.Start(target, poc.Rules)
+        } else {
+            verify, err = scan.StartByGroups(target, poc.Groups)
+        }
+        scanner.Release(scan)
+        log.Printf("%s: %v", target, verify)
+    }
+    return err
 }
 
 func main() {
-	http.Setup(20, 5)
-	poc, err := build.NewPocEventWithYamlStr(pocYamlStr)
-	if err != nil {
-		log.Panic(err)
-	}
-	for i := 0; i < len(urls); i++ {
-		logic(poc, urls[i])
-	}
+    http.Setup(20, 5)
+    poc, err := build.NewPocEventWithYamlStr(pocYamlStr)
+    if err != nil {
+        log.Panic(err)
+    }
+    for i := 0; i < len(urls); i++ {
+        logic(poc, urls[i])
+    }
 }
 
 ```
