@@ -67,6 +67,8 @@ func (p *PocEvent) DecodeSet(env *cel.Env) map[string]interface{} {
 					switch v := out.Value().(type) {
 					case int64:
 						set[keys[i]] = int(v)
+					case []byte:
+						set[keys[i]] = string(v)
 					default:
 						set[keys[i]] = fmt.Sprintf("%v", out)
 					}
