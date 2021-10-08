@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/valyala/fasthttp"
-	"github.com/yanmengfei/spoce/library/http"
-	"github.com/yanmengfei/spoce/library/utils"
+	"github.com/yanmengfei/poc-engine-xray/library/http"
+	"github.com/yanmengfei/poc-engine-xray/library/utils"
 )
 
 var reverseDomain, reverseToken string

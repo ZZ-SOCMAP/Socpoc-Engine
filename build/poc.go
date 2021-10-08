@@ -6,9 +6,9 @@ import (
 	"strings"
 
 	"github.com/google/cel-go/cel"
-	"github.com/yanmengfei/spoce/library/decode"
-	"github.com/yanmengfei/spoce/library/proto"
-	"github.com/yanmengfei/spoce/library/utils"
+	"github.com/yanmengfei/poc-engine-xray/library/decode"
+	"github.com/yanmengfei/poc-engine-xray/library/proto"
+	"github.com/yanmengfei/poc-engine-xray/library/utils"
 	"gopkg.in/yaml.v2"
 )
 

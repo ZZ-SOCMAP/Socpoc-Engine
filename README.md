@@ -10,7 +10,7 @@
 ## Download
 
 ```bash
-go get github.com/yanmengfei/spoce
+go get github.com/yanmengfei/poc-engine-xray
 ```
 
 ## Example
@@ -21,9 +21,9 @@ package main
 import (
     "log"
 
-    "github.com/yanmengfei/spoce/build"
-    "github.com/yanmengfei/spoce/library/http"
-    "github.com/yanmengfei/spoce/scanner"
+    "github.com/yanmengfei/poc-engine-xray/build"
+    "github.com/yanmengfei/poc-engine-xray/library/http"
+    "github.com/yanmengfei/poc-engine-xray/scanner"
 )
 
 var urls = []string{

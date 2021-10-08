@@ -9,7 +9,7 @@ import (
 	"sync"
 
 	"github.com/valyala/fasthttp"
-	"github.com/yanmengfei/spoce/library/utils"
+	"github.com/yanmengfei/poc-engine-xray/library/utils"
 )
 
 const (

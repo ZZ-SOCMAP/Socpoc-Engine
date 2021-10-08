@@ -1,4 +1,4 @@
-module github.com/yanmengfei/spoce
+module github.com/yanmengfei/poc-engine-xray
 
 go 1.16
 

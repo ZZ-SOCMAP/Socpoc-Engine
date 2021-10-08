@@ -15,8 +15,8 @@ import (
 	"github.com/google/cel-go/common/types"
 	"github.com/google/cel-go/common/types/ref"
 	"github.com/google/cel-go/interpreter/functions"
-	"github.com/yanmengfei/spoce/library/proto"
-	"github.com/yanmengfei/spoce/library/utils"
+	"github.com/yanmengfei/poc-engine-xray/library/proto"
+	"github.com/yanmengfei/poc-engine-xray/library/utils"
 	exp "google.golang.org/genproto/googleapis/api/expr/v1alpha1"
 )
 

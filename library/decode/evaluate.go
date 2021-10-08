@@ -8,7 +8,7 @@ import (
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/checker/decls"
 	"github.com/google/cel-go/common/types/ref"
-	"github.com/yanmengfei/spoce/library/proto"
+	"github.com/yanmengfei/poc-engine-xray/library/proto"
 	exp "google.golang.org/genproto/googleapis/api/expr/v1alpha1"
 )
 

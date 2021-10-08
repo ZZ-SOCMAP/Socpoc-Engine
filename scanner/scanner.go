@@ -8,10 +8,10 @@ import (
 
 	"github.com/google/cel-go/cel"
 	"github.com/valyala/fasthttp"
-	"github.com/yanmengfei/spoce/build"
-	"github.com/yanmengfei/spoce/library/decode"
-	"github.com/yanmengfei/spoce/library/http"
-	"github.com/yanmengfei/spoce/library/proto"
+	"github.com/yanmengfei/poc-engine-xray/build"
+	"github.com/yanmengfei/poc-engine-xray/library/decode"
+	"github.com/yanmengfei/poc-engine-xray/library/http"
+	"github.com/yanmengfei/poc-engine-xray/library/proto"
 )
 
 var scannerPool = sync.Pool{New: func() interface{} { return new(scanner) }}
